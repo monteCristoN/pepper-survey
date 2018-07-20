@@ -1,0 +1,63 @@
+topic: ~pepper-survey()
+language: enu
+
+include:lexicon_enu.top
+
+dynamic: choices
+
+#animations
+concept:(animations) ^rand[ "^start(animations/Stand/BodyTalk/Speaking/BodyTalk_1)" "^start(animations/Stand/BodyTalk/Speaking/BodyTalk_10)" "^start(animations/Stand/BodyTalk/Speaking/BodyTalk_14)" "^start(animations/Stand/BodyTalk/Speaking/BodyTalk_12)" ]
+concept:(anims_end) ^rand[ "^run(animations/Stand/BodyTalk/Speaking/BodyTalk_16)" ]
+concept:(anims_tablet) ^rand[ "^start(animations/Stand/Gestures/ShowTablet_1)" "^start(animations/Stand/Gestures/ShowTablet_2)" ]
+concept:(anim) ^startTag(tablet_free)
+
+#content
+concept:(next) ["next {question}" "go [forward ahead]"]
+concept:(can_you_repeat) [
+    "repeat {me} [the your] {last} question"
+    "repeat what you just said {please}" 
+    "{~can_you} repeat {it please}"
+    "{~can_you} [tell ask] {me} [the that] question {again "one more time"}"
+    "what [is was] the question {again}"
+    "what ["did you say" "were you [saying "asking me"]"] {again}"
+]
+
+concept:(1_10) [1 2 3 4 5 6 7 8 9 10]
+concept:(nps_good_note) [awesome great excellent amazing "very good" magnificent super superb incredible impressive marvelous "a lot"]
+concept:(nps_mid_note) [nice funny okay fine soso average "not much" "a little {bit}"]
+concept:(nps_bad_note) ["{not very} bad" awful ridiculous terrible horrible "{extremely very} boring" "not at all"]
+concept:(nps) [~nps_good_note ~nps_mid_note ~nps_bad_note]
+
+concept:(focus_tablet) ^first["$pepper-survey/TabletFocus==1 \PAU=500\ ^start(animations/Stand/Gestures/ShowTablet_1) Use my tablet to answer." " \PAU=10\ "]
+
+# choices input
+u:(_[0 ~1_10 ~nps]) %nps ok ^pCall(PepperSurvey.onDialogEvent('INPUT_DIALOG_NPS', $1))
+
+u:(_[~1_10 ~nps] {*}) %rating ok ^pCall(PepperSurvey.onDialogEvent('INPUT_DIALOG_RATING', $1))
+
+u:({*} _~choices {*}) %choices ok ^pCall(PepperSurvey.onDialogEvent('INPUT_DIALOG_CHOICES', $1))
+
+u:(~next) %next next question  ^pCall(PepperSurvey.onDialogEvent('ON_NEXT_QUESTION'))
+
+proposal:%EMPTY ^empty
+
+proposal:%QUESTION $pepper-survey/CurrentQuestion/Title ~focus_tablet ^pCall(PepperSurvey.onDialogEvent('QUESTION_FINISHED')) 
+    u1:(~can_you_repeat) ^rand["I'll repeat," "I was saying," "The question is"] $pepper-survey/CurrentQuestion/Title ^pCall(PepperSurvey.onDialogEvent('QUESTION_FINISHED')) ^stayInScope
+
+proposal:%SPEECH $pepper-survey/Speech/Presentation
+
+proposal:%ON_ANSWER_SELECTED ["got it" "understood" "Roger That" "Perfect"]
+
+proposal:%ANSWERED [Great "Moving on"]
+
+proposal:%NO_ANSWER This question requires an answer.
+
+proposal:%END_OF_SURVEY Perfect! We are done. ^pCall(PepperSurvey.onDialogEvent('QUIT'))
+
+proposal: %INACTIVITY ~anim Do you need more time ? ^pCall(PepperSurvey.onDialogEvent('INACTIVITY_FINISHED', ''))
+    u1:(~yes) ~anim Sure ^pCall(PepperSurvey.onDialogEvent('RESET_INACTIVITY', ''))
+    u1:(~no) ^pCall(PepperSurvey.onDialogEvent('QUIT', ''))
+
+proposal:%QUIT See you later ^pCall(PepperSurvey.onDialogEvent('EXIT'))
+
+proposal:%INTERNAL_ERROR I'm sorry, an error occured. I can't start the survey.

@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<package version="0.0.3" uuid="pepper-survey-786f41">
+ <names>
+  <name lang="en_US">Pepper Survey</name>
+  <name lang="en_US-x-scrald">Pepper Survey</name>
+ </names>
+ <descriptions>
+  <description lang="en_US">Pepper Survey Application</description>
+  <description lang="en_US-x-scrald">Pepper Survey Application</description>
+ </descriptions>
+ <supportedLanguages>
+  <language>en_US</language>
+ </supportedLanguages>
+ <descriptionLanguages>
+  <language>en_US</language>
+ </descriptionLanguages>
+ <contents>
+  <behaviorContent path=".">
+   <nature>interactive</nature>
+   <permissions/>
+  </behaviorContent>
+ </contents>
+ <requirements>
+  <naoqiRequirement minVersion="2.5" maxVersion="2.5"/>
+  <robotRequirement model="JULIETTE_Y20"/>
+ </requirements>
+ <services>
+  <service name="PepperSurvey" execStart="/usr/bin/python2 scripts/main.py" autorun="false"/>
+  <service name="ALSurveyMonkey" execStart="/usr/bin/python2 scripts/alsurveymonkey.py" autorun="true"/>
+ </services>
+</package>

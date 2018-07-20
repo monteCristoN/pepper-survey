@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- needed to scale tablet display -->
+    <meta name="viewport"
+          content="width=1280, user-scalable=no" />
+    <!-- application css -->
+    <link media="screen" href="css/style.css" rel="stylesheet" type="text/css">
+    <link media="screen" href="css/custom.css" rel="stylesheet" type="text/css">
+
+    <!-- qimessaging & jquery stuff -->
+    <script src="js/jquery-1.11.0.min.js"></script>
+    <script src="js/robotutils.min.js"></script>
+    <script src="js/jquery.textfill.js"></script>
+    <script src="js/main.js"></script>
+
+</head>
+<body class="init">
+    <!-- splashscreen -->
+    <a id="button-quit" class="quit"></a>
+    <div id="init" class="fullscreen hidden"> 
+        <h1>Pepper Survey</h1> 
+    </div>
+
+    <div id="question" class="fullscreen hidden">
+        <h1 id="question-heading"> </h1>
+        <div id="question-choices-container"></div>
+        <div id="question-footer">
+            <div id="question-next-button">Next</div>
+            <div id="progress-bar" class="background">
+                <div class="indicator"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="answered" class="fullscreen hidden">
+        <h1> Processing ... </h1>
+    </div>
+
+    <script>
+        var app = application();
+    </script>
+</body>
+</html>

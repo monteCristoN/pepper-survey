@@ -1,0 +1,88 @@
+@charset "utf-8";
+
+body {
+background: #f5f5f5;
+}
+
+/* 
+ * Primary color
+ * => default button color
+ */
+#question-choices-container ul li label,
+#question-choices-container table.nps label,
+#question-choices-container table.rating tr:nth-child(even),
+#question-choices-container input[type=range]::-webkit-slider-thumb
+{
+background-color: #a2d5db;
+}
+
+a.quit{
+color:#a2d5db;
+}
+
+/* 
+ * Secondary color 
+ * => selected button color
+ */
+#progress-bar .indicator,
+#question-next-button.activated,
+#question-choices-container.slider .indicator,
+#question-choices-container ul li input[type=radio]:checked+label,
+#question-choices-container ul li input[type=checkbox]:checked+label,
+#question-choices-container table.nps input[type=radio]:checked+label,
+#question-choices-container table.rating tr:nth-child(odd) input[type=radio]:checked+label,
+#question-choices-container table.rating tr:nth-child(even) input[type=radio]:checked+label
+{
+background-color: #00bcd4;
+}
+
+/* 
+ * Alternative primary color 
+ */
+#question-next-button,
+#progress-bar.background,
+#question-choices-container table.rating tr input[type=radio]+label,
+#question-choices-container input[type=range]::-webkit-slider-runnable-track
+{
+background-color: #7a7a7a;
+}
+
+body,
+#answered h1, 
+#init h1, 
+#question-heading,
+#question-choices-container.slider #left_label,
+#question-choices-container.slider #right_label,
+#question-choices-container table.rating tr:first-child,
+#question-choices-container table.rating tr:nth-child(odd) td:first-child
+{
+color: #1591d0;
+}
+
+/* 
+ * Primary font color 
+ */
+#question-next-button,
+#question-choices-container ul li label,
+#question-choices-container table.rating,
+#question-choices-container table.nps label,
+#question-choices-container ul li input[type=checkbox]+label::before
+{
+color: #ffffff;
+}
+
+/* 
+ * Secondary font color 
+ */
+#question-next-button.activated,
+#question-choices-container.slider .indicator,
+#question-choices-container ul li input[type=radio]:checked+label,
+#question-choices-container ul li input[type=checkbox]:checked+label,
+#question-choices-container ul li input[type=checkbox]:checked+label::before,
+#question-choices-container table.nps input[type=radio]:checked+label,
+#question-choices-container table.rating tr:nth-child(odd) input[type=radio]:checked+label,
+#question-choices-container table.rating tr:nth-child(even) input[type=radio]:checked+label
+{
+color: #ffffff;
+border-color: #ffffff;
+}
